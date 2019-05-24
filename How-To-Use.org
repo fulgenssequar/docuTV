@@ -16,6 +16,8 @@
 
 - Press A to apply the last command for extra 5 times; 
 
+- Press K to quick jump pages;
+
 * Prepare the automatic sequence of lens:
 
 - Press P to start/stop preparing the automatic sequence;
