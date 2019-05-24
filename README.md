@@ -4,5 +4,5 @@
 
 * Open docuTV.html in browser and learn how to use, or
 
-* See How-To-Use.org To See The Detail.
+* View How-To-Use.org for the Detail.
 
