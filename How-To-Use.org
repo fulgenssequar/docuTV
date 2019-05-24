@@ -1,0 +1,52 @@
+#+TITLE: How To Use:
+
+* Open the html file in the browser.
+
+* Adjust the lens using keyboard:
+
+- Press E, D, S, F, to move the lens.;
+
+- Press Z / X to zoom-in / zoom-out the lens;
+
+ *If the page gets stuck at loading stage, try the six keys above to reinitialize the image.*
+
+- Press W, R to turn pages;
+
+- Press B to alter the fast/slow moving of lens;
+
+- Press A to apply the last command for extra 5 times; 
+
+* Prepare the automatic sequence of lens:
+
+- Press P to start/stop preparing the automatic sequence;
+
+- Press 4 to add the current lens to the sequence;
+
+** After the lens sequence is prepared :
+
+- Press SPACE to move forward ( in the lens sequence );
+
+- Press V to move backward ( in the lens sequence );
+
+- Press G to go to the first/last lens position;
+
+- Press Q to remove the history window mark
+/By default, the history window position will appear in the main window as dashed boxes, which prompts convenience in fast scanning./
+
+- Press 1 to start/stop the automatic jumping mode.
+
+* Load your own documents and other limitations:
+
+- Only image files are supported. Each image file is taken as one page in the document.
+
+- The page list (picArray) is stored in the file "piclist.js", which is an array of names of image files.
+
+- run the python script lspng.py generates the piclist.js automatically.
+/(`python lspng.py $PATH_OF_IMAGE_FOLDER` generates "piclist.js" in which all files in the image folder are contained.)/
+
+
+* TODO Future Job:
+
+- Notes property.
+
+-
