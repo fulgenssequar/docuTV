@@ -5,6 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="docuTV.css" type="text/css"/>
 	<script src="piclist.js"></script>
+	<script src="./pdfjs-2.0.943-dist/build/pdf.js"></script>
 	<script>
 	 var bLen = picArray.length;
 	 var bP = -1;
@@ -55,22 +56,28 @@
 
 	     var lensPosition;
 
-	     function blinkLens() {
+	     function blinkLens( firstTime = false ) {
 		 rerec = result.parentNode.getBoundingClientRect();
 		 imrec = img.getBoundingClientRect();
 		 img.parentElement.insertBefore(lens, img);
-		 lensPosition = {
-		     x:0,
-		     y:0,
-		     w:rerec.width / howLarge,
-		     h:rerec.height / howLarge,
-		     l : howLarge,
-		     xMax:imrec.width,
-		     yMax:imrec.height	     
+		 if (firstTime) {
+		     lensPosition = {
+			 x:0,
+			 y:0,
+			 w:rerec.width / howLarge,
+			 h:rerec.height / howLarge,
+			 l : howLarge,
+			 xMax:imrec.width,
+			 yMax:imrec.height	     
+		     }
+		 }
+		 else {
+		     lensPosition.xMax = imrec.width;
+		     lensPosition.yMax = imrec.height;
 		 }
 		 return lensPosition;
 	     }
-	     blinkLens();
+	     blinkLens( true );
 	     //lens.style.width = rerec.width / howLarge + "px";
 	     //lens.style.height = rerec.height  / howLarge + "px";
 	     //verbose.innerHTML= result.getBoundingClientRect().height;
@@ -386,7 +393,7 @@
 		 if (betterPicking){
 		     alert("Completed")
 		     betterPicking = false;
-		     betterCurrent = 0;
+		     betterCurrent = -1;
 		 }
 		 else{
 		     alert("Start Make Sections Now!")
@@ -405,7 +412,6 @@
 	     }
 	     
 	     function followBetterForward(){
-		 
 		 l = betterLensList.length;
 		 if (l <= 0) {
 		     return 0
@@ -413,7 +419,7 @@
 		 else {
 		     addToHistory();
 		     if (betterCurrent >= l-1) {
-			 nextPagege()
+			 nextPage()
 			 betterCurrent = 0;
 		     }
 		     else{
@@ -488,6 +494,7 @@
 		 pageForward(imgID);
 		 verbose.innerHTML =  betterCurrent + ", p" + bP + "/ " + bLen;
 		 result.style.backgroundImage = "url('" + img.src + "')";
+		 blinkLens();
 		 resetScale(howLarge);
 	     }
 	     
@@ -496,6 +503,7 @@
 		 pageBackward(imgID);
 		 verbose.innerHTML =  betterCurrent + ", p" + bP + "/ " + bLen;
 		 result.style.backgroundImage = "url('" + img.src + "')";
+		 blinkLens();
 		 resetScale(howLarge);
 	     }
 
@@ -624,7 +632,7 @@
 	     return moveToLarge
 	 }
 	 fload =  function(){imageZoom("myimage", "myresult")};
-	 window.addEventListener('DOMContentLoaded', fload, false);
+	 window.addEventListener('DOMContentLoaded', fload);
 	</script>
     </head>
     <body>
