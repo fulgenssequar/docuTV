@@ -3,22 +3,128 @@
     <head>
 	<title> DocuTV - An Automatized On-Screen Documnet Viewer  </title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="docuTV.css" type="text/css"/>
-	<script src="piclist.js"></script>
-	<script src="./pdfjs-2.0.943-dist/build/pdf.js"></script>
+	<link rel="stylesheet" href="./src/docuTV.css" type="text/css"/>
+	<script src="./src/piclist.js"></script>
+	<script src="./lib/pdfjs-2.0.943-dist/build/pdf.js"></script>
 	<script>
+	 
 	 var bLen = picArray.length;
 	 var bP = -1;
-	 function pageForward(imgID){
-	     bP = (bP + 1)%bLen;
+	 picCanvases = new Array( );
+	 
+	 function pageForward(imgID, pace = 1){
+	     bP = (bP + pace)%bLen;
 	     img = document.getElementById(imgID);
-	     img.src = picArray[bP];
+	     if (picArray[bP]){
+		 img.src = picArray[bP];
+	     }
+	     else{
+		 getPageI(bP);
+	     }
 	 }
-	 function pageBackward(imgID){
-	     bP = ((bP-1) % bLen + bLen) % bLen;
+	 
+	 function pageBackward(imgID, pace = 1){
+	     bP = ((bP-pace) % bLen + bLen) % bLen;
 	     img = document.getElementById(imgID);
-	     img.src = picArray[bP]
+
+	     if (picArray[bP]){
+		 img.src = picArray[bP];
+	     }
+	     else{
+		 getPageI(bP);
+	     }
 	 }
+
+	 
+	 var pdfUrl = "./resources/hott.pdf";
+	 var picCanvases;
+	 var canvas = document.createElement("canvas");
+	 var canvas2 = document.createElement("canvas");
+	 pdfTsk = pdfjsLib.getDocument(pdfUrl);
+	 //	 pdfTsk = new Array();
+
+
+	 function getPDF(pdfUrl = pdfUrl){
+	     picArray = new Array();
+	     pdfTsk = pdfjsLib.getDocument(pdfUrl);
+	 }	     
+	 
+	 var fetchPDF = document.createElement('input');
+	 fetchPDF.type = 'file';
+
+	 fetchPDF.onchange = e => {
+
+	     pdfUrl = e.target.files[0].name;
+	     getPDF(pdfUrl);
+	 }
+
+	 function getPageI(i){
+	     
+
+	     pdfTsk.promise.then( function( pdf) {
+
+		 //		 picArray = new Array( bLen );
+		 bLen = pdf.numPages;
+		 
+		 pdf.getPage(i+1).then( function( page ) {
+		     
+
+
+		     console.log("running at page " + i )
+		     var viewport = page.getViewport( 3 );
+
+		     var ctx = canvas.getContext("2d");
+		     canvas.width = viewport.width;
+		     canvas.height = viewport.height;
+		     var renderContext = {canvasContext:ctx, viewport:viewport};
+		     page.render( renderContext );
+		     //  picCanvases[i] = canvas;
+		     
+		     img = document.getElementById("myimage");
+		     canvas.className = img.className;
+		     img.parentNode.insertBefore(canvas, img)
+		     img.src = canvas.toDataURL();
+		     
+		     ctx2 = canvas2.getContext("2d");
+		     //		     ctx2.drawImage(canvas, 0, 0);
+		     canvas2.width = viewport.width;
+		     canvas2.height = viewport.height;
+		     var renderContext = {canvasContext:ctx2, viewport:viewport};
+		     page.render( renderContext );
+
+		     canvas2.className = img.className;
+		     result = document.getElementById("myresult");
+		     result.appendChild(canvas2);
+		     
+		     if (ctx) {
+			 ctx.clearRect(0, 0, canvas.width, canvas.height);
+			 ctx.beginPath();
+		     }
+
+		     if (ctx2) {
+			 ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
+			 ctx2.beginPath();
+		     }
+
+		     
+		 }, function(r){console.log(r)} )
+	     })
+	 }
+	 function getWholePDF(){
+	     pdfTsk.promise.then( function(pdf){
+		 bLen = pdf.numPages;
+		 picArray = new Array(bLen);
+		 for (i=0; i<bLen; i++){
+		     getPageI(i);
+		 }
+	     } )
+	 }
+
+	 
+
+	 
+	 
+	 
 	 
 	 function imageZoom(imgID, resultID) {
 	     var img, lens, result, cx, cy;
@@ -182,12 +288,12 @@
 	     keyDict[70] = righterLens;
 	     
 	     keyDict[80] = startStopBetter;
-	     keyDict[52] = addBetter;
+	     keyDict[84] = addBetter;
 	     
 	     keyDict[32] = followBetterForward;
 	     keyDict[86] = followBetterBackward;
 	     keyDict[71] = gotoFirstLast;
-	     keyDict[49] = autoBetterForward;
+	     keyDict[52] = autoBetterForward;
 
 	     
 	     keyDict[81] = killHistory;
@@ -197,6 +303,11 @@
 
 	     keyDict[82] = nextPage;
 	     keyDict[87] = prePage;
+	     keyDict[49] = function(){prePage(10)};
+	     keyDict[50] = function(){nextPage(10)};
+
+
+	     keyDict[79] = function(){getPDF(prompt("Select The File", "./resources/hott.pdf"))};
 
 	     /* 
 	      * 	     toRepeatKey = 65;	     
@@ -489,18 +600,18 @@
 	     yPace = 0.6;
 	     xPace = 0.8;
 	     
-	     function nextPage(){
+	     function nextPage(pace = 1){
 		 killHistory();
-		 pageForward(imgID);
+		 pageForward(imgID, pace);
 		 verbose.innerHTML =  betterCurrent + ", p" + bP + "/ " + bLen;
 		 result.style.backgroundImage = "url('" + img.src + "')";
 		 blinkLens();
 		 resetScale(howLarge);
 	     }
 	     
-	     function prePage(){
+	     function prePage( pace = 1){
 		 killHistory();
-		 pageBackward(imgID);
+		 pageBackward(imgID, pace);
 		 verbose.innerHTML =  betterCurrent + ", p" + bP + "/ " + bLen;
 		 result.style.backgroundImage = "url('" + img.src + "')";
 		 blinkLens();
@@ -633,13 +744,16 @@
 	 }
 	 fload =  function(){imageZoom("myimage", "myresult")};
 	 window.addEventListener('DOMContentLoaded', fload);
+
+	 
+
 	</script>
     </head>
     <body>
 
 	<div class="allcontainer">
 	    <div class="img-zoom-container">
-		<img id="myimage" class="img-org" src="img_cover.png" >
+		<img id="myimage" class="img-org" src="./img_cover.png" >
 		<div id="verbose">	  abc	</div>	
 	    </div>
 	    <div class="res-container">

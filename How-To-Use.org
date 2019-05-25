@@ -2,6 +2,8 @@
 
 * Open the html file in the browser.
 
+* *NEW* Press O to open a pdf file (relatively slower)...
+
 * Adjust the lens using keyboard:
 
 - Press E, D, S, F, to move the lens.;
@@ -15,6 +17,8 @@
 - Press B to alter the fast/slow moving of lens;
 
 - Press A to apply the last command for extra 5 times; 
+
+- *NEW* Press 1, 2 to take 10-page jumps.
 
 * Prepare the automatic sequence of lens:
 
@@ -33,7 +37,7 @@
 - Press Q to remove the history window mark
 /By default, the history window position will appear in the main window as dashed boxes, which prompts convenience in fast scanning./
 
-- Press 1 to start/stop the automatic jumping mode.
+- Press *5* to start/stop the automatic jumping mode.
 
 * Load your own documents and other limitations:
 
@@ -44,9 +48,9 @@
 - run the python script lspng.py generates the piclist.js automatically.
 /(`python lspng.py $PATH_OF_IMAGE_FOLDER` generates "piclist.js" in which all files in the image folder are contained.)/
 
+* Version 1.1 Note:
 
-* TODO Future Job:
+- *PDF Supported* 
 
-- Notes property.
 
--
+
