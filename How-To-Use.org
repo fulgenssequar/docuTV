@@ -18,7 +18,11 @@
 
 - Press A to apply the last command for extra 5 times; 
 
+<<<<<<< HEAD
 - *NEW* Press 1, 2 to take 10-page jumps.
+=======
+- Press K to quick jump pages;
+>>>>>>> b00a355c716dab655462be8a2ce2519db85f1c47
 
 * Prepare the automatic sequence of lens:
 
@@ -45,7 +49,7 @@
 
 - The page list (picArray) is stored in the file "piclist.js", which is an array of names of image files.
 
-- run the python script lspng.py generates the piclist.js automatically.
+- Run the python script lspng.py to generate the piclist.js automatically.
 /(`python lspng.py $PATH_OF_IMAGE_FOLDER` generates "piclist.js" in which all files in the image folder are contained.)/
 
 * Version 1.1 Note:
