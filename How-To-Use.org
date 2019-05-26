@@ -2,7 +2,7 @@
 
 * Open the html file in the browser.
 
-* *NEW* Press O to open a pdf file (relatively slower)...
+* *NEW* Press O/L to open a pdf file (Firefox only, low performance)...
 
 * Adjust the lens using keyboard:
 
@@ -18,11 +18,9 @@
 
 - Press A to apply the last command for extra 5 times; 
 
-<<<<<<< HEAD
 - *NEW* Press 1, 2 to take 10-page jumps.
 =======
 - Press K to quick jump pages;
->>>>>>> b00a355c716dab655462be8a2ce2519db85f1c47
 
 * Prepare the automatic sequence of lens:
 
@@ -45,16 +43,14 @@
 
 * Load your own documents and other limitations:
 
-- Only image files are supported. Each image file is taken as one page in the document.
+- The page list (picArray) is stored in the file "piclist.js", pdf list (pdfArray) in "pdflist.js".
 
-- The page list (picArray) is stored in the file "piclist.js", which is an array of names of image files.
-
-- Run the python script lspng.py to generate the piclist.js automatically.
-/(`python lspng.py $PATH_OF_IMAGE_FOLDER` generates "piclist.js" in which all files in the image folder are contained.)/
+- Run the python script lspng.py or lspdf.py to generate the piclist.js automatically.
+/(`python lspng.py $PATH_OF_IMAGE_FOLDER` generates "piclist.js" )/
 
 * Version 1.1 Note:
-
 - *PDF Supported* 
+- Animated Timer 
 
 
 

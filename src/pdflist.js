@@ -1,0 +1,1 @@
+var pdfList = ['project/project/resources/example_pdf//French_Revolution.pdf', 'project/project/resources/example_pdf//hott.pdf']

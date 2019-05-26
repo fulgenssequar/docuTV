@@ -29,6 +29,14 @@
     z-index:10;
 }
 
+.page-bar {
+    position:absolute;
+    border: 3px solid rgba(200, 77, 44, 1);
+    z-index:10;
+    right:0px;
+    bottom:0px;
+}
+
 .last-lens {
     position:absolute;
     overflow:hidden;

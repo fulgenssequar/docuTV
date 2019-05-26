@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html>
     <head>
-	<title> DocuTV - Destroy Your Last Excuse From Doing Deep Reading On Screen  </title>
+	<title> DocuTV - An Automatized On-Screen Documnet Viewer  </title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="project/src/docuTV.css" type="text/css"/>
-	<script src="project/src/piclist.js"></script>
-	<script src="project/src/pdflist.js"></script>
+	<link rel="stylesheet" href="docuTV.css" type="text/css"/>
+	<script src="piclist.js"></script>
 	<script src="project/lib/pdfjs-2.0.943-dist/build/pdf.js"></script>
 	<script>
 	 
@@ -37,32 +36,39 @@
 	 }
 
 	 
-	 var pdfUrl = pdfList[0];
+	 var pdfUrl = "project/resources/hott.pdf";
 	 var picCanvases;
 	 var canvas = document.createElement("canvas");
 	 var canvas2 = document.createElement("canvas");
 	 pdfTsk = pdfjsLib.getDocument(pdfUrl);
 	 //	 pdfTsk = new Array();
 
+
 	 function getPDF(pdfUrl = pdfUrl){
-	     picArray = new Array();
 	     pdfTsk = pdfjsLib.getDocument(pdfUrl);
-	     bP = -1;
 	 }	     
 	 
 	 var fetchPDF = document.createElement('input');
 	 fetchPDF.type = 'file';
 
 	 fetchPDF.onchange = e => {
+	     picArray = new Array();
 	     pdfUrl = e.target.files[0].name;
 	     getPDF(pdfUrl);
 	 }
 
 	 function getPageI(i){
+	     
+
 	     pdfTsk.promise.then( function( pdf) {
+
 		 //		 picArray = new Array( bLen );
 		 bLen = pdf.numPages;
+		 
 		 pdf.getPage(i+1).then( function( page ) {
+		     
+
+
 		     console.log("running at page " + i )
 		     var viewport = page.getViewport( 3 );
 
@@ -98,12 +104,12 @@
 			 ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
 			 ctx2.beginPath();
 		     }
+
+		     
 		 }, function(r){console.log(r)} )
 	     })
 	 }
-
 	 function getWholePDF(){
-	     // An unpracticable function unless you have 1Tb memory...
 	     pdfTsk.promise.then( function(pdf){
 		 bLen = pdf.numPages;
 		 picArray = new Array(bLen);
@@ -113,6 +119,12 @@
 	     } )
 	 }
 
+	 
+
+	 
+	 
+	 
+	 
 	 function imageZoom(imgID, resultID) {
 	     var img, lens, result, cx, cy;
 	     img = document.getElementById(imgID);
@@ -175,6 +187,7 @@
 	     //lens.style.height = rerec.height  / howLarge + "px";
 	     //verbose.innerHTML= result.getBoundingClientRect().height;
 	     /*insert lens:*/
+
 
 	     function putLens(){
 		 lens.style.left = lensPosition.x + "px";
@@ -293,20 +306,8 @@
 	     keyDict[50] = function(){nextPage(10)};
 
 
-	     
-	     keyDict[79] = function(){getPDF(prompt("Select The File", pdfList[0]));bP=-1; nextPage()};
-	     keyDict[76] = function(){
-		 pdfSheet = "- "
-		 for (i in pdfList){
-		     pdfSheet = pdfSheet + i + " - " + pdfList[i] + "\n- ";
-		 }
-		 var n  = prompt(pdfSheet + "Input a num:", 0);
-		 
-		 getPDF(pdfList[n]); bP=-1;
-		 nextPage();
-	     }
+	     keyDict[79] = function(){fetchPDF.click()};
 
-	     
 	     /* 
 	      * 	     toRepeatKey = 65;	     
 	      * 	     keyDict[toRepeatKey] = toRepeat;
@@ -500,12 +501,12 @@
 	     
 	     function startStopBetter(){
 		 if (betterPicking){
-		     alert("Preparation Finished.")
+		     alert("Completed")
 		     betterPicking = false;
 		     betterCurrent = -1;
 		 }
 		 else{
-		     alert("Press T To Prepare Sections, And P To Finish. ")
+		     alert("Start Make Sections Now!")
 		     betterLensList.length = 0;
 		     betterPicking = true;
 		 }
@@ -540,43 +541,17 @@
 		 }
 	     }
 
-	     var defaultInterval = 5;
-	     var currentShrink = defaultInterval;
+	     defaultInterval = 5;
 	     var incumbentInterval = -1;
-	     var incumbentShrink = -1;
-	     
-	     pageBar = document.createElement("div")
-	     pageBar.className = "page-bar";
-	     img.parentElement.appendChild(pageBar);
 	     function autoBetterForward(){
-		 function setBar(){
-		     pageBar.style.height = currentShrink*100/defaultInterval + "%";
-		 }
 		 if ( incumbentInterval >= 0 ){
 		     window.clearTimeout( incumbentInterval );
-		     window.clearTimeout( incumbentShrink );
 		     incumbentInterval = -1;
-		     incumbentShrink = -1;
-		     pageBar.style.height="0px";
 		     return;
 		 }
-		 defaultInterval = prompt( "Interval In Seconds:", defaultInterval  );
-		 currentShrink = defaultInterval;
-		 
-		 if (defaultInterval < 2){ return; }
-		 
-		 intime = defaultInterval * 1000;
-		 incumbentInterval = window.setInterval(
-		     function(){
-			 followBetterForward();
-			 currentShrink = defaultInterval;
-			 setBar();
-		     },
-		     intime)
-		 incumbentShrink = window.setInterval( function(){
-		     currentShrink = currentShrink - 1;
-		     setBar();
-		 }, 1000)
+		 intime = prompt( "Interval In Seconds:", defaultInterval  );
+		 intime = intime * 1000;
+		 incumbentInterval = window.setInterval( followBetterForward, intime);
 		 // note: The use of typeof() == "unsigned" ...
 		 // note: the use of window. setInterval / setTimeout  / clearTimeout ...
 		 // note: prompt( text, defaulttext)
