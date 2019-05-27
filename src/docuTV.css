@@ -12,21 +12,25 @@
 #verbose{
     position:absolute;
     bottom:0px;
+    left:4px;
     width:100%;
-    min-height:100px;
+    vertical-align:bottom;
+    background-color:rgba(255,111,88,0.5);
+    color:rgba(0,20,20,1);
+    font-size:20px;
 }
 
 .img-org {
     position:absolute;
     width:100%;
-    border:1px;
+    border:0px;
     object-fit:contain;
 }
 .img-zoom-lens {
     position: absolute;
     border: 2px solid red;
     /*set the size of the lens:*/
-    z-index:10;
+    z-index:11;
 }
 
 .page-bar {
@@ -40,7 +44,7 @@
 .last-lens {
     position:absolute;
     overflow:hidden;
-    border: 4px dotted rgba(200, 0, 0, 0.3);
+    border: 4px dashed rgba(200, 0, 0, 0.4);
     //    backgroundColor: rgba(0.4,0.3,0.0.6);
     //    box-shadow: inset 5px 5px  #888888;
     outline: 1px solid rgba(200, 0,0, 0.9);

@@ -58,6 +58,7 @@
 	     getPDF(pdfUrl);
 	 }
 
+	 var sidePix=300;
 	 function getPageI(i){
 	     pdfTsk.promise.then( function( pdf) {
 		 //		 picArray = new Array( bLen );
@@ -285,6 +286,30 @@
 
 	     keyDict[75] = quickGoto;
 
+	     // H key:
+
+	     hideOrNot = function(){
+		 if (img.parentElement.style.zIndex != -1){
+		     img.parentElement.style.zIndex = -1;
+		     if (pageBar){pageBar.style.right="100%";}
+		     result.parentElement.style.left = "4px";
+		     followLens();
+		 }
+		 else {
+		     img.parentElement.style.zIndex = 9;
+		 }
+	     }
+
+	     bringSideBack = function(){
+		 img.parentElement.style.zIndex = 9;
+		 if (pageBar) {pageBar.style.right="0px";}
+		 result.parentElement.style.left = img.getBoundingClientRect().width + "px";
+		 followLens();		     
+	     }
+	     
+	     keyDict[72] = hideOrNot;
+	     keyDict[221] = bringSideBack;
+
 	     keyDict[82] = nextPage;
 	     keyDict[87] = prePage;
 	     keyDict[49] = function(){prePage(10)};
@@ -355,7 +380,7 @@
 	     }
 
 	     function quickGoto(){
-		 nPage = prompt("Input The Page:", bP);
+		 nPage = prompt("Input The Page:", bLen);
 		 bP = nPage - 1;
 		 nextPage();
 	     }
@@ -391,7 +416,8 @@
 		 putLens();
 		 followLens()
 	     }
-	     
+
+	     	     
 	     function lefterLens(){
 		 imgRec = img.getBoundingClientRect();
 		 //		 lensRec = lens.getBoundingClientRect();
