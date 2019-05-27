@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-	<title> DocuTV - Destroy Your Last Excuse From Doing Deep Reading On Screen  </title>
+	<title> DocuTV - Makes Your Reading Nights With The Screen Not Suck  </title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="project/src/docuTV.css" type="text/css"/>
 	<script src="project/src/piclist.js"></script>
@@ -115,15 +115,16 @@
 
 	 function imageZoom(imgID, resultID) {
 	     var img, lens, result, cx, cy;
+	     var howLarge=5;
 	     img = document.getElementById(imgID);
 	     img.addEventListener("load", function(){resetScale(howLarge)});
 	     result = document.getElementById(resultID);
 	     verbose = document.getElementById("verbose");
 
-	     howLarge=8;
+
 	     
-	     historyLens = new Array();
-	     historyLimit = 3;
+	     var historyLens = new Array();
+	     var historyLimit = 3;
 
 
 
