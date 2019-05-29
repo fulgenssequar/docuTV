@@ -1,12 +1,9 @@
 #+TITLE: How To Use:
 
-* Run sh RUNME.sh or directly open the html file in the browser.
+* open the html file in the browser.
+- Move pdf documents into ./sources/doc/;
+- run `sh RUNME.sh`;
 - Require: python3; 
-- Moving documents into ./source/ beforehand.
-
-* Press O/L to open a pdf file from ./resources/* ( low performance)...
-- Press O and input an arbitrary document path, or -
-- Press L to select from the files in Resources.
 
 * Adjust your scope using keyboard:
 - Press Z / X to zoom-in / zoom-out the scope;
@@ -16,9 +13,14 @@
 - Press A to apply the last command for extra 5 times; 
 - *NEW* Press 1, 2 to take 10-page jumps.
 - Press K to quick jump pages;
-- Press H/] to hide/retrieve side frame;
+- Press H to hide / temporally display preview frame, and -
+- Press ] to retrieve the hidden preview frame.
 
-* Prepare the automatic sequence of lens:
+* Open a pdf file instead of default image documents ( low performance)...
+- Press O and input an arbitrary document path, or -
+- Press L and select from the file-list.
+
+* Set the automatic view sequence in a page:
 - Press P to start/stop preparing the automatic sequence;
 - Press 4 to add the current lens to the sequence;
 
