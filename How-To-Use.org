@@ -40,6 +40,9 @@
 * Version 1.1 Note:
 - *PDF Supported* 
 - Animated timing bar.
-
+ 
+* TODO Problems:
+- Text searching
+- Taking notes
 
 
