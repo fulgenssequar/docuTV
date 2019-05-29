@@ -1,1 +1,1 @@
-var pdfList = ['project/./project/resources//French_Revolution.pdf', 'project/./project/resources//hott.pdf']
+var pdfList = ['project/./project/resources/doc//French_Revolution.pdf', 'project/./project/resources/doc//hott.pdf']

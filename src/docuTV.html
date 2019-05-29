@@ -190,7 +190,7 @@
 	     lens.addEventListener("mousemove", moveLens);
 	     img.addEventListener("mousemove", moveLens);
 
-	     window.addEventListener("mousedown", function(e){e.preventDefault; stepLens()});
+	     //	     window.addEventListener("mousedown", function(e){e.preventDefault; stepLens()});
 	     window.addEventListener("keydown", translateKey);
 	     /*and also for touch screens:*/
 	     lens.addEventListener("touchmove", moveLens);
@@ -236,6 +236,9 @@
 
 	     function translateKey(e){
 		 // note: preventDefault to prevent default.
+		 if (! keyDict[e.keyCode]){
+		     return;
+		 }
 		 e.preventDefault();
 		 console.log( e.keyCode );
 		 keyDict[e.keyCode]();
@@ -527,6 +530,7 @@
 		     alert("Preparation Finished.")
 		     betterPicking = false;
 		     betterCurrent = -1;
+		     killHistory();
 		 }
 		 else{
 		     alert("Press T To Prepare Sections, And P To Finish. ")
@@ -540,6 +544,8 @@
 		 if (betterPicking) {
 		     li = betterLens();
 		     betterLensList.push(li)
+		     addToHistory();
+		     putAllHistory();
 		     verbose.innerHTML = "List: " + betterLensList.length;
 		 }
 	     }
